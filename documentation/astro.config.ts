@@ -17,25 +17,9 @@ import { remarkFallbackLang } from "./plugins/remark-fallback-lang";
 export default defineConfig({
   site: process.env.NODE_ENV === "development" ? "http://localhost:3000" : `https://effector.dev`,
   integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
-    preact({
-      compat: true,
-    }),
-    mdx({
-      syntaxHighlight: "prism",
-      remarkPlugins: [directive, admonitions, github, remarkHeadingId as any],
-      rehypePlugins: [
-        [
-          rehypeAutolinkHeadings,
-          {
-            behavior: "append",
-            properties: { class: "href" },
-          },
-        ],
-      ],
-    }),
+    tailwind({ applyBaseStyles: false }),
+    preact({ compat: true }),
+    mdx({ extendMarkdownConfig: true }),
     prefetch(),
     process.env.COMPRESS !== "false" && compress(),
   ],
